@@ -16,7 +16,7 @@ async function submitSignup(page) {
   await page.getByRole('button', { name: 'Sign up' }).click();
 }
 
-test('Signup with existing email address', async ({ page }) => {
+test('Signup with existing email address @signup', async ({ page }) => {
   await navigateToSignup(page);
   await fillSignupForm(page, 'help', 'help', 'testuser1@gmail.com', 'aA#.1234');
   await submitSignup(page);
@@ -25,7 +25,7 @@ test('Signup with existing email address', async ({ page }) => {
   
 });
 
-test('All empty field validations check', async ({ page }) => {
+test('All empty field validations check @validations', async ({ page }) => {
   await navigateToSignup(page);
   await page.getByRole('button', { name: 'Sign up' }).click();
   await page.getByText('Please provide your first');
@@ -39,7 +39,7 @@ test('All empty field validations check', async ({ page }) => {
   await page.getByText('Please enter a valid email');
 });
 
-test('Signup with valid credentials', async ({ page }) => {
+test('Signup with valid credentials @signup', async ({ page }) => {
   await navigateToSignup(page);
   await fillSignupForm(page, 'help', 'help', 'txestussser1sssss2s@gmail.com', 'aA#.1234');
   await submitSignup(page);
@@ -48,7 +48,7 @@ test('Signup with valid credentials', async ({ page }) => {
   await expect(page.getByText('Please verify your email address')).toBeVisible();
 });
 
-test('Signup and take screenshot', async ({ page }) => {
+test('Signup and take screenshot @screenshot', async ({ page }) => {
   await navigateToSignup(page);
   await fillSignupForm(page, 'help', 'help', 'txdsfdsfessssssstssssudssser1sssssss2s@gmail.com', 'aA#.1234');
   await submitSignup(page);
