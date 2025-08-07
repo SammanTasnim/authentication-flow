@@ -28,10 +28,32 @@ test('Signup with existing email address', async ({ page }) => {
 test('All empty field validations check', async ({ page }) => {
   await navigateToSignup(page);
   await page.getByRole('button', { name: 'Sign up' }).click();
-  await page.getByText('Please provide your first').click();
-  await page.getByText('Please provide your last name.').click();
-  await page.getByText('Email address is required.').click();
+  await page.getByText('Please provide your first');
+  await page.getByText('Please provide your last name.')();
+  await page.getByText('Email address is required.');
   await page.getByText('Password is required.', { exact: true }).click();
   await page.getByText('Confirm password is required.').click();
   await expect(page).toHaveURL('/auth/signup');
+  await page.getByRole('textbox', { name: 'Email address' }).fill('sdasd');
+  await page.getByRole('button', { name: 'Sign up' }).click();
+  await page.getByText('Please enter a valid email');
+});
+
+test('Signup with valid credentials', async ({ page }) => {
+  await navigateToSignup(page);
+  await fillSignupForm(page, 'help', 'help', 'txestussser1sssss2s@gmail.com', 'aA#.1234');
+  await submitSignup(page);
+  await page.waitForTimeout(3000); 
+  // check login success
+  await expect(page.getByText('Please verify your email address')).toBeVisible();
+});
+
+test('Signup and take screenshot', async ({ page }) => {
+  await navigateToSignup(page);
+  await fillSignupForm(page, 'help', 'help', 'txdsfdsfessssssstssssudssser1sssssss2s@gmail.com', 'aA#.1234');
+  await submitSignup(page);
+  await page.waitForTimeout(3000); 
+  // check login success
+  await page.screenshot({ path: 'screenshots/signup-successs.png', fullPage: true });
+  
 });
